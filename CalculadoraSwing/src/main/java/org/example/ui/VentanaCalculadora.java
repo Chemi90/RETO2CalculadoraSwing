@@ -42,6 +42,7 @@ public class VentanaCalculadora extends JFrame implements ActionListener {
         txtDisplay.setFont(new Font("Arial", Font.PLAIN, 24));
         txtDisplay.setEditable(false);
 
+        // Orden en el que aparece en el GridLayout
         btnAc = new JButton("AC");
         btnRetroceso = new JButton("←");
         btnRestar = new JButton("-");
@@ -174,15 +175,6 @@ public class VentanaCalculadora extends JFrame implements ActionListener {
                 }
                 break;
 
-            case "+/-":
-                String displayText = txtDisplay.getText();
-                if (!displayText.isEmpty() && !displayText.equals("0")) {
-                    double value = Double.parseDouble(displayText);
-                    value = -value;
-                    txtDisplay.setText(Double.toString(value));
-                }
-                break;
-
             case "00":
                 String texto00 = txtDisplay.getText();
                 if (!texto00.equals("0")) {
@@ -233,14 +225,6 @@ public class VentanaCalculadora extends JFrame implements ActionListener {
                     throw new ArithmeticException("Division by zero");
                 }
                 return operand1 / operand2;
-            case "AC":
-                txtDisplay.setText("");
-                operator = "";
-                firstOperand = 0;
-                secondOperand = 0;
-                return 0.0;
-            case "+/-":
-                return -operand2; // This negates the second operand
 
             case "00":
                 return Double.parseDouble(operand1 + "00");
