@@ -5,15 +5,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Esta clase representa la interfaz gráfica de la calculadora.
+ *
+ * @author Jose Miguel Ruiz Guevara, Alejandro Álvarez Mérida
+ * @version 18/10/2023
+ */
 public class VentanaCalculadora extends JFrame implements ActionListener {
-    private JPanel calculadora;
+    //Declaración de variables y componentes
+    private JPanel padNum;
     private JTextField txtDisplay;
     private JButton btnAc, btnRestar, btnMultiplicar, btnDividir, btnIgual, btnRetroceso,
-            btn7, btn4, btn1, btnSumar, btnDecimal, btnNegativo,  btn00, btn8, btn5, btn2, btn0, btn9, btn6, btn3;
+            btn7, btn4, btn1, btnSumar, btnDecimal, btnNegativo, btn00, btn8, btn5, btn2, btn0, btn9, btn6, btn3;
     private String operator = "";
     private double firstOperand = 0;
     private double secondOperand = 0;
 
+    /**
+     * Constructor de la clase VentanaCalculadora
+     * Inicializa la interfaz de la calculadora, creando y configurando los botones y el campo de texto.
+     */
     public VentanaCalculadora() {
         // Inicializar la ventana
         setTitle("Calculadora");
@@ -21,9 +32,9 @@ public class VentanaCalculadora extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Crear y configurar el panel
-        calculadora = new JPanel();
-        calculadora.setLayout(new GridLayout(5, 4, 5, 5));
+        // Crear un panel para los botones
+        padNum = new JPanel();
+        padNum.setLayout(new GridLayout(5, 4, 5, 5));
 
         // Inicializar los componentes
         txtDisplay = new JTextField();
@@ -73,33 +84,43 @@ public class VentanaCalculadora extends JFrame implements ActionListener {
         btnNegativo.addActionListener(this);
 
         // Agregar componentes al panel
-        calculadora.add(txtDisplay);
-        calculadora.add(btnAc);
-        calculadora.add(btnRestar);
-        calculadora.add(btnMultiplicar);
-        calculadora.add(btnDividir);
-        calculadora.add(btn7);
-        calculadora.add(btn8);
-        calculadora.add(btn9);
-        calculadora.add(btnSumar);
-        calculadora.add(btn4);
-        calculadora.add(btn5);
-        calculadora.add(btn6);
-        calculadora.add(btn1);
-        calculadora.add(btn2);
-        calculadora.add(btn3);
-        calculadora.add(btn0);
-        calculadora.add(btn00);
-        calculadora.add(btnDecimal);
-        calculadora.add(btnIgual);
-        calculadora.add(btnRetroceso);
-        calculadora.add(btnNegativo);
+        padNum.add(txtDisplay);
+        padNum.add(btnAc);
+        padNum.add(btnRetroceso);
+        padNum.add(btnNegativo);
+        padNum.add(btnSumar);
+        padNum.add(btn7);
+        padNum.add(btn8);
+        padNum.add(btn9);
+        padNum.add(btnRestar);
+        padNum.add(btn4);
+        padNum.add(btn5);
+        padNum.add(btn6);
+        padNum.add(btnMultiplicar);
+        padNum.add(btn1);
+        padNum.add(btn2);
+        padNum.add(btn3);
+        padNum.add(btnDividir);
+        padNum.add(btn00);
+        padNum.add(btn0);
+        padNum.add(btnDecimal);
+        padNum.add(btnIgual);
+
+        // Crear un panel para contener el campo de texto
+        JPanel displayPanel = new JPanel();
+        displayPanel.setLayout(new BorderLayout());
+        displayPanel.add(txtDisplay, BorderLayout.CENTER);
 
         // Agregar el panel a la ventana
-        add(calculadora);
+        add(displayPanel, BorderLayout.NORTH); //Se coloca en la parte superior
+        add(padNum);
 
     }
 
+    /**
+     * Método que responde a los eventos de acción generados por los botones.
+     * @param e Objeto de tipo ActionEvent que representa el evento de acción.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton source = (JButton) e.getSource();
@@ -188,6 +209,14 @@ public class VentanaCalculadora extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Realiza una operación matemática entre los dos operandos.
+     * @param operand1 Primer operando.
+     * @param operand2 Segundo operando.
+     * @param operator Operador (+, -, *, /).
+     * @return El resultado de la operación.
+     * @throws ArithmeticException Si se intenta dividir entre cero.
+     */
     private double performOperation(double operand1, double operand2, String operator) {
         switch (operator) {
             case "+":
@@ -223,8 +252,12 @@ public class VentanaCalculadora extends JFrame implements ActionListener {
             default:
                 return 0.0;
         }
+
     }
 
+    /**
+     * Muestra la ventana de la calculadora.
+     */
     public void mostrar() {
         setVisible(true);
     }
